@@ -1,0 +1,53 @@
+﻿@using WebProject.Models
+@model IEnumerable<Model>
+@{
+    ViewData["Title"] = "Models Page";
+}
+
+<form asp-action="ModelsPage" asp-controller="Model">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <a class="btn btn-success" asp-action="NewModel" asp-controller="Model">Добавить новую модель</a>   <button class="btn btn-info" asp-action="ModelsPage" asp-controller="Model" asp-route-sortOrder="@ViewBag.BrandSort">Отсортировать по брендам</button>
+    <div class="container">
+        <label style="text-align:left;padding-left:5px">Название модели и бренда:</label><br>
+        @foreach (Model m in Model)
+        {
+            @Html.HiddenFor(id => m.Id)
+            <div class="row">
+                <div class="col-md-2">
+                    <a asp-action="ChangeModel" asp-controller="Model" class="btn btn-link" asp-route-id="@m.Id">
+                        @{
+                            if (m.Active)
+                            {
+                                <label style="text-align:left;padding-left:5px;color:black">@m.Name</label>
+                            }
+                            else
+                            {
+                                <label style="text-align:left;padding-left:5px;color:darkgray">@m.Name</label>
+                            }
+                        }
+                    </a>
+                </div>
+                <div class="col-md-2">
+                    @foreach (var el in ViewBag.brands)
+                    {
+                        @if (el.Id == m.BrandId)
+                        {
+                            if (el.Active)
+                            {
+                                <label style="text-align:left;padding-left:5px;color:black">@el.Name</label>
+                            }
+                            else
+                            {
+                                <label style="text-align:left;padding-left:5px;color:darkgray">@el.Name</label>
+                            }
+                        }
+                    }
+                </div>
+                <div class="col-md-2">
+                    <button class="btn-danger btn" asp-action="DeleteModel" asp-controller="Model" asp-route-id="@m.Id">Удалить</button>
+                </div>
+            </div>
+            <br />
+        }
+    </div>
+</form>

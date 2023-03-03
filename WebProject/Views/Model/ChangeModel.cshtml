@@ -1,0 +1,40 @@
+﻿@model WebProject.ViewModels.ChangeModel
+
+<form asp-action="ChangeModel" asp-controller="Model" asp-anti-forgery="true" enctype="multipart/form-data">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    @Html.HiddenFor(id => Model.Id)
+    <div>
+        <h1 class="h3 mb-3 font-weight-normal">Изменение модели</h1>
+        <div>
+            <label asp-for="Name" class="col-form-label-lg">Введите название модели</label><br />
+            <input type="text" asp-for="Name" class="form-control-lg" value="@Model.Name" />
+            <span asp-validation-for="Name" />
+        </div>
+        <div>
+            <label asp-for="BrandName" class="col-form-label-lg">Выберите бренд</label><br />
+            <select asp-for="BrandName">
+                @{
+                    foreach (var brand in ViewBag.Brands)
+                    {
+                        if (brand.Name == Model.BrandName)
+                        {
+                            <option value="@brand.Name" selected>@brand.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@brand.Name">@brand.Name</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <label asp-for="Active" class="col-form-label-lg">Является ли модель активной</label><br />
+            <input type="checkbox" asp-for="Active" class="form-control-lg" />
+            <span asp-validation-for="Active" />
+        </div>
+        <div>
+            <input type="submit" value="Добавить" class="btn btn-lg btn-primary" />
+        </div>
+    </div>
+</form>

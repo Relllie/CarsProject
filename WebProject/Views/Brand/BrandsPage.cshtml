@@ -1,0 +1,36 @@
+﻿@using WebProject.Models
+@model IEnumerable<Brand>
+@{
+    ViewData["Title"] = "Brands Page";
+}
+
+<form asp-action="BrandsPage" asp-controller="Brand">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <a class="btn btn-success" asp-action="AddBrand" asp-controller="Brand">Добавить новую марку</a>
+    <div class="container">
+        <label style="text-align:left;padding-left:5px">Название бренда:</label><br>
+        @foreach (Brand b in Model)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <a asp-action="ChangeBrand" asp-controller="Brand" class="btn btn-link" asp-route-id="@b.Id">
+                        @{
+                            if (b.Active)
+                            {
+                                <label style="text-align:left;padding-left:5px;color:black">@b.Name</label>
+                            }
+                            else
+                            {
+                                <label style="text-align:left;padding-left:5px;color:darkgray">@b.Name</label>
+                            }
+                        }
+                    </a>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn-danger btn" asp-action="DeleteBrand" asp-controller="Brand" asp-route-id="@b.Id">Удалить</button>
+                </div>
+            </div>
+            <br/>
+        }
+    </div>
+</form>
