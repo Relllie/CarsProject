@@ -14,7 +14,7 @@
             @Html.HiddenFor(id => m.Id)
             <div class="row">
                 <div class="col-md-2">
-                    <a asp-action="ChangeModel" asp-controller="Model" class="btn btn-link" asp-route-id="@m.Id">
+                    <a asp-action="ChangeModel" asp-controller="Model" class="btn btn-link btn-outline-info" asp-route-id="@m.Id">
                         @{
                             if (m.Active)
                             {
